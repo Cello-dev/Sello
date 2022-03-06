@@ -7,6 +7,9 @@ The title of the pull request should tell the reviewer what the changes are focu
 **Pull Request Review**<br>
 At least one person must review the pull request before being accepted for merging. The code changes must be tested beforehand and not run into any glaring issues. Any error relevant to the pull request must be fixed if they pop up during testing.
 
+## Pushing
+When pushing code up to remote repository make sure it is in its own branch then make a pull request to then have it be merged into main. __Do Not push directly into main__
+
 ## Commits
 Changes in the commit must accurately represent what the commit message is saying. A clear and concise commit message helps us identify what the commit is about.
 
