@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Text, View} from 'react-native';
-import Login from "./login";
+import Login from "./screens/login_reg/login";
 import { getCurrentTimestamp } from 'react-native/Libraries/Utilities/createPerformanceLogger';
 
 export default function App() {

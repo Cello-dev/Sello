@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 68,
     paddingBottom:120 ,
   },
+
   input: {
     paddingBottom: 10,
     paddingTop:10,
@@ -85,9 +86,10 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   enterButtons: {
-    paddingTop: 10,
+    paddingTop: 50,
     paddingBottom:15,
     paddingHorizontal:20,
+
   },
 
 });
