@@ -14,6 +14,11 @@ export default function App() {
       </View>
       );
     }
+    else if(isLoggedIn){
+    //bring user directly to their account dashboard
+    }
+    
+
 }
 
 const styles = StyleSheet.create({
