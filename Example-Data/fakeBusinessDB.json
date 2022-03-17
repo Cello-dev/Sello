@@ -1,0 +1,26 @@
+{
+    "Businesses":
+    [
+        {
+            "name": "business1",
+            "handle":"bness",
+            "address":"234 real place, real-place,MA",
+            "email": "bness@gmail.com",
+            "pword": "123",
+            "productList":
+            [
+                {
+                    "name": "p1",
+                    "business":"b1",
+                    "taglist":
+                    [
+                        "Recreation","Food","Sports"
+                    ],
+                    "description": "Fake Product: Description.",
+                    "imgURL":
+                    ["PATH_TO_WHERE_PICTURES_FOUND","PATH_TO_WHERE_PICTURES_FOUND","PATH_TO_WHERE_PICTURES_FOUND"]
+                }
+            ]
+        }
+    ]
+}
