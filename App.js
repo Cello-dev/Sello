@@ -13,17 +13,12 @@ export default function App() {
       </View>
       );
     }
-    else if(isLoggedIn){
-    //bring user directly to their account dashboard
-    }
-    
-
 }
 
 const styles = StyleSheet.create({
-container:{
-  flex: 1,
-  alignItems:"center",
-  justifyContent:"center",
-}
+  container:{
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  }
 });
