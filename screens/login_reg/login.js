@@ -1,49 +1,56 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
-import { getCurrentTimestamp } from 'react-native/Libraries/Utilities/createPerformanceLogger';
+import { styles, forms } from "./styles.js";
 
 export default function App() {
   const[isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    
-    <View style={styles.container}>
+    <View style={forms.container}>
       <Text style={styles.title}>Sello</Text>
         <Text>Sello Business</Text>
           <Switch 
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
-        <View style = {styles.login}>
-          <View style = {styles.input}>
+        <View style={styles.login}>
+          <View style={forms.input}>
             <TextInput
-              placeholder = "Email"
+              placeholder="Email"
             />
           </View>
-          <View style = {styles.input}>
+          <View style={forms.input}>
             <TextInput
-              placeholder = "Password" secureTextEntry={true}
+              placeholder="Password"
+              secureTextEntry={true}
             />
           </View>
          
         </View>
-        <View style ={styles.enterButtons}>
+        <View style={[forms.button, {marginBottom: 40}]}>
           <Button
-          title="Login"
-          onPress={() => Alert.alert('OOPS! Login User Not Implemented Yet')}
-            />
-      
-          <Button
-            title="Register"
-            onPress={() => Alert.alert('OOPS! Register User Not Implemented Yet')}
+            title="Login"
+            onPress={() => Alert.alert('OOPS! Login User Not Implemented Yet')}
           />
+        </View>
+        <View>
+          <Text>Don't have an account?</Text>
+          <View style={forms.button}>
+            <Button
+              title="Register"
+              onPress={() => Alert.alert('OOPS! Register User Not Implemented Yet')}
+            />
           </View>
+        </View>
       <StatusBar style="auto" />
     </View>
   );
 }
+
+/*
+TODO: Fix this function not working
 
 validate = (text) => {
   console.log(text);
@@ -57,39 +64,4 @@ validate = (text) => {
     this.setState({ email: text })
     console.log("Email is Correct");
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  login: {
-    padding : 10,
-    marginTop: 15,
-    paddingHorizontal:70,
-    backgroundColor: "#bbb",
-    width: Dimensions.get("window").width
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 68,
-    paddingBottom:120 ,
-  },
-
-  input: {
-    paddingBottom: 10,
-    paddingTop:10,
-    paddingLeft: 5,
-    paddingRight: 5,
-  },
-  enterButtons: {
-    paddingTop: 50,
-    paddingBottom:15,
-    paddingHorizontal:20,
-
-  },
-
-});
+}*/
