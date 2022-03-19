@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Alert, Button, TextInput } from "react-native-web";
+import { styles, buttons, forms} from "./styles.js";
 
 export default function Register() {
 	const[email, setEmail] = useState();
@@ -12,42 +13,58 @@ export default function Register() {
 
 	return (
 		<View>
-			<Text>Register</Text>
-			<TextInput
-				placeholder="Email"
-				autoCapitalize="none"
-				onChangeText={val => setEmail(val)}
-			/>
-			<TextInput
-				placeholder="Password"
-				autoCapitalize="none"
-				onChangeText={val => setPassword(val)}
-				secureTextEntry={true}
-			/>
-			<TextInput
-				placeholder="Phone Number"
-				autoCapitalize="none"
-				onChangeText={val => setPhone(val)}
-			/>
-			<TextInput
-				placeholder="Brand Name"
-				autoCapitalize="none"
-				onChangeText={val => setBrandName(val)}
-			/>
-			<TextInput
-				placeholder="Brand Description"
-				autoCapitalize="none"
-				onChangeText={val => setBrandDesc(val)}
-			/>
-			<TextInput
-				placeholder="Industry Type"
-				autoCapitalize="none"
-				onChangeText={val => setIndustry(val)}
-			/>
-			<Button
-				title="Register"
-				onPress={() => Alert.alert("Submitted reigster")}
-			/>
+			<Text style={styles.title}>Register</Text>
+			<View style={styles.login}>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Email"
+						autoCapitalize="none"
+						onChangeText={val => setEmail(val)}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Password"
+						autoCapitalize="none"
+						onChangeText={val => setPassword(val)}
+						secureTextEntry={true}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Phone Number"
+						autoCapitalize="none"
+						onChangeText={val => setPhone(val)}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Brand Name"
+						autoCapitalize="none"
+						onChangeText={val => setBrandName(val)}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Brand Description"
+						autoCapitalize="none"
+						onChangeText={val => setBrandDesc(val)}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Industry Type"
+						autoCapitalize="none"
+						onChangeText={val => setIndustry(val)}
+					/>
+				</View>
+			</View>
+			<View style={forms.submit}>
+				<Button
+					title="Register"
+					onPress={() => Alert.alert("Submitted reigster")}
+				/>
+			</View>
 		</View>
 	);
 }
