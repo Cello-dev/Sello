@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
-import { styles, forms } from "./styles.js";
+import { styles, forms } from "../styles.js";
 
 export default function App() {
   const[isEnabled, setIsEnabled] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert, Button, TextInput } from 'react-native';
-import { styles, forms } from "./styles.js";
+import { styles, forms } from "../styles.js";
 
 export default function Register() {
 	const[email, setEmail] = useState();
