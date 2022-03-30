@@ -2,18 +2,30 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
 import { styles, forms } from "./styles.js";
+import SwitchSelector from "react-native-switch-selector";
+import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default function App() {
-  const[isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  // This is an asych task, the value may not be updated right away.
+  const[userType, setUserType] = useState("sello");
+
+  const selectorOptions =[
+    {label: "Business", value: "business"},
+    {label: "Sello", value: "sello"}
+  ]
 
   return (
     <View style={forms.container}>
       <Text style={styles.title}>Sello</Text>
-        <Text>Sello Business</Text>
-          <Switch 
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+        <Text>What type of user are you?</Text>
+          <SwitchSelector
+            inital={0}
+            onPress={value => setUserType(userType => value)}
+            options={selectorOptions}
+            buttonColor={"#AAA"}
+            borderColor={"#000"}
+            style={{width:200, paddingTop: 30}}
+            hasPadding
           />
         <View style={styles.login}>
           <View style={forms.input}>
