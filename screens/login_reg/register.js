@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert, Button, TextInput } from 'react-native';
 import { styles, forms } from "./styles.js";
 
-export default function Register() {
+export default function Register({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
 	const[email, setEmail] = useState();
 	const[password, setPassword] = useState();
 	const[phone, setPhone] = useState();
