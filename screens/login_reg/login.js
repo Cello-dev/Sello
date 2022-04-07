@@ -2,18 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
 import { styles, forms } from "./styles.js";
+import SwitchSelector from "react-native-switch-selector"
 
-export default function App() {
-  const[isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
+  const selectorOptions =[
+    {label: "Sello", value: "sello"},
+    {label: "Business", value: "business"},
+  ]
+  const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
 
   return (
     <View style={forms.container}>
       <Text style={styles.title}>Sello</Text>
-        <Text>Sello Business</Text>
-          <Switch 
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+        <Text>What type of user are you?</Text>
+          <SwitchSelector
+            options={selectorOptions}
+            inital={0}
+            onPress={value => setUserType(value)}
+            buttonColor={"#AAA"}
+            borderColor={"#000"}
+            style={{width:200, paddingTop: 10}}
+            hasPadding
           />
         <View style={styles.login}>
           <View style={forms.input}>
@@ -40,7 +49,7 @@ export default function App() {
           <View style={forms.button}>
             <Button
               title="Register"
-              onPress={() => Alert.alert('OOPS! Register User Not Implemented Yet')}
+              onPress={() => navigation.navigate("Register")}
             />
           </View>
         </View>
