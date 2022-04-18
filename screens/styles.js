@@ -1,12 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const forms = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   input: {
     paddingVertical: 10,
     paddingHorizontal: 5,
@@ -31,6 +25,12 @@ const styles = StyleSheet.create({
     //backgroundColor: "#bbb",
     //width: Dimensions.get("window").width
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 68,
@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   logo: {
-    width: 66,
-    height: 58
+    width: 100,//66,
+    height: 100, //58,
+    borderRadius: 50,
+    margin: 20
   }
 });
 
