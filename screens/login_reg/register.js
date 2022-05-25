@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert, Button, TextInput } from 'react-native';
 import { styles, forms } from "./styles.js";
+import SwitchSelector from "react-native-switch-selector"
 
 export default function Register({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
 	const[email, setEmail] = useState();
@@ -9,6 +10,12 @@ export default function Register({navigation}) { // Passing the screen the navig
 	const[brandName, setBrandName] = useState();
 	const[brandDesc, setBrandDesc] = useState();
 	const[industry, setIndustry] = useState();
+	const selectorOptions =[
+		{label: "Sello", value: "sello"},
+		{label: "Business", value: "business"},
+	  ]
+	const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
+
 
 	return (
 		<View>
@@ -57,11 +64,31 @@ export default function Register({navigation}) { // Passing the screen the navig
 						onChangeText={val => setIndustry(val)}
 					/>
 				</View>
+				<View style={forms.input}>
+				<View style={forms.container}>
+					
+					<Text style={{textAlign : 'center'}}><b>What type of user are you?</b></Text>
+						<SwitchSelector
+						alignItems = {'center'}
+						justifyContent = {'center'}
+						options={selectorOptions}
+						inital={0}
+						onPress={value => setUserType(value)}
+						buttonColor={"#AAA"}
+						borderColor={"#000"}
+						style={{width:200, paddingTop: 10}}
+						hasPadding
+						/>
+					</View>
+				</View>
 			</View>
 			<View style={forms.submit}>
 				<Button
 					title="Register"
-					onPress={() => Alert.alert("Submitted reigster")}
+					// onPress={() => Alert.alert("Submitted reigster")}
+					onPress={() => console.log(userType)}
+					//when the button is pressed, we have to check to see what state the switch is in
+					//based on the state, certain fields should be checked if they are
 				/>
 			</View>
 		</View>
