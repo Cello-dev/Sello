@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 
 const forms = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   input: {
     paddingVertical: 10,
     paddingHorizontal: 5,
@@ -13,7 +18,8 @@ const forms = StyleSheet.create({
   submit: {
     paddingTop: 50,
     paddingBottom: 15,
-    paddingHorizontal: 20
+    paddingHorizontal: 10,
+    marginHorizontal: 75
   }
 });
 
