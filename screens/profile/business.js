@@ -5,7 +5,7 @@ const Product = require("../../objects/Product");
 
 export default function Business() {
 
-	// MOCK DATA - Remove after fetch api is complete
+	// - - - - - -  MOCK DATA - Remove after fetch api is implemented
 	let productArr = [];
 	let item;
 	for (let i = 0; i < 8; i++) {
@@ -18,7 +18,7 @@ export default function Business() {
 		};
 		productArr.push(item);
 	}
-	// end of MOCK DATA
+	// - - - - - - end of MOCK DATA - - - - - -
 
 	// Keeps page in loading state until fetch api is complete
 	// TODO: Change useState from false to true after fetch api is added
@@ -26,12 +26,11 @@ export default function Business() {
 	// TODO: Fetch API to get business data and display on screen
 	const [data, setData] = useState(productArr);
 
-	//function productComponent(name, business, tag, desc, img) {
 	function productComponent({item}) {
 		const product = new Product(item['name'], item['business'], item['tag'], item['desc'], item['img']);
 		return (
 			<View key={product.getName} style={s.item}>
-				<Text>{product.getName}</Text>
+				<Text style={s.productName}>{product.getName}</Text>
 				<Image
 					style={s.image}
 					source={
@@ -43,18 +42,20 @@ export default function Business() {
 	}
 
 	return (
-		<View>
+		<View style={styles.container}>
 			{ isLoading && <Text>Loading...</Text> }
 			{ data.length > 0 && (
-					<View style={styles.container}>
+					<View style={{justifyContent: 'center', alignItems: 'center'}}>
 						<Image
 							style={styles.logo}
 							source={
 								{uri: "https://reactnative.dev/img/tiny_logo.png"}
 							}
 						/>
-						<Text style={s.name}>Business Name</Text>
+						<Text style={s.businessName}>Business Name</Text>
+						<Text style={s.businessTag}>Business Tag</Text>
 						<FlatList
+							contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
 							data={data}
 							numColumns={2}
 							renderItem={productComponent}
@@ -67,16 +68,27 @@ export default function Business() {
 }
 
 const s = StyleSheet.create({
-	name: {
+	businessName: {
 		fontSize: 40,
 		padding: 10,
-		margin: 20
+		margin: 5
+	},
+	businessImage: {
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	businessTag: {
+		fontSize: 18,
+	},
+	productName: {
+		fontSize: 20,
+		textAlign: 'center'
 	},
 	image: {
-		width: 50,
-		height: 50
+		width: 100,
+		height: 100
 	},
 	item: {
-		margin: 5
+		margin: 20
 	}
 });
