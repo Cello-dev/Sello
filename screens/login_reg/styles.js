@@ -13,8 +13,9 @@ const forms = StyleSheet.create({
     margin: 5,
     borderColor: 'black',
     borderStyle: 'solid',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 10,
+    backgroundColor: '#FFF'
   },
   submit: {
     paddingTop: 50,
@@ -25,7 +26,7 @@ const forms = StyleSheet.create({
   slider: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20
+    paddingBottom: 5
   }
 });
 
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 68,
-    paddingBottom: 40,
     textAlign: 'center'
   },
 });

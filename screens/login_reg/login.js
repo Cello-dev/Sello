@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
+import { Platform, StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
 import { styles, forms } from "./styles.js";
 import SwitchSelector from "react-native-switch-selector"
-import { TouchableWithoutFeedback } from 'react-native-web';
 
 export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
   const selectorOptions =[
@@ -11,7 +10,8 @@ export default function App({navigation}) { // Passing the screen the navigation
     {label: "Business", value: "business"},
   ]
   const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
-
+  const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the textinput border on web. Cannot be in a stylesheet.
+  
   return (
   <View style={forms.container}>
     <Text style={styles.title}>Sello</Text>
@@ -31,12 +31,14 @@ export default function App({navigation}) { // Passing the screen the navigation
       <View style={forms.input}>
         <TextInput
           placeholder="Email"
+          style={textInputStyle}
         />
       </View>
       <View style={forms.input}>
         <TextInput
           placeholder="Password"
           secureTextEntry={true}
+          style={textInputStyle}
         />
       </View>
     </View>
