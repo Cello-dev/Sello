@@ -20,7 +20,7 @@ export default function App() {
 
     if(!isLoggedIn){
       return (
-      <TouchableWithoutFeedback onPress={KeyboardDismisser()}>
+      <TouchableWithoutFeedback onPress={() => KeyboardDismisser()}>
           <View style={styles.container}>
             <NavigationContainer>
               <Stack.Navigator>
