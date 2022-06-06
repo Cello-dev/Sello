@@ -16,16 +16,28 @@ export default function Register({navigation}) { // Passing the screen the navig
 	  ]
 	const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
 
-
 	return (
-		<View>
+		<View style={forms.container}>
 			<Text style={styles.title}>Register</Text>
 			<View style={styles.login}>
+				<View style={forms.slider}>
+					<Text>What type of user are you?</Text>
+					<SwitchSelector
+						options={selectorOptions}
+						inital={0}
+						onPress={value => setUserType(value)}
+						buttonColor={"#AAA"}
+						borderColor={"#000"}
+						style={{width:200, paddingTop: 10}}
+						hasPadding
+					/>
+				</View>
 				<View style={forms.input}>
-					<TextInput
+					<TextInput 
 						placeholder="Email"
 						autoCapitalize="none"
 						onChangeText={val => setEmail(val)}
+						multiline={false}
 					/>
 				</View>
 				<View style={forms.input}>
@@ -63,23 +75,6 @@ export default function Register({navigation}) { // Passing the screen the navig
 						autoCapitalize="none"
 						onChangeText={val => setIndustry(val)}
 					/>
-				</View>
-				<View style={forms.input}>
-				<View style={forms.container}>
-					
-					<Text style={{textAlign : 'center'}}><b>What type of user are you?</b></Text>
-						<SwitchSelector
-						alignItems = {'center'}
-						justifyContent = {'center'}
-						options={selectorOptions}
-						inital={0}
-						onPress={value => setUserType(value)}
-						buttonColor={"#AAA"}
-						borderColor={"#000"}
-						style={{width:200, paddingTop: 10}}
-						hasPadding
-						/>
-					</View>
 				</View>
 			</View>
 			<View style={forms.submit}>

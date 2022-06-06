@@ -7,6 +7,7 @@ const forms = StyleSheet.create({
     justifyContent: 'center'
   },
   input: {
+    width: 200,
     paddingVertical: 10,
     paddingHorizontal: 5,
     margin: 5,
@@ -20,6 +21,11 @@ const forms = StyleSheet.create({
     paddingBottom: 15,
     paddingHorizontal: 10,
     marginHorizontal: 75
+  },
+  slider: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
   }
 });
 
