@@ -7,19 +7,26 @@ const forms = StyleSheet.create({
     justifyContent: 'center'
   },
   input: {
+    width: 200,
     paddingVertical: 10,
     paddingHorizontal: 5,
     margin: 5,
     borderColor: 'black',
     borderStyle: 'solid',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 10,
+    backgroundColor: '#FFF'
   },
   submit: {
     paddingTop: 50,
     paddingBottom: 15,
     paddingHorizontal: 10,
     marginHorizontal: 75
+  },
+  slider: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 5
   }
 });
 
@@ -40,7 +47,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 68,
-    paddingBottom: 40,
     textAlign: 'center'
   },
   logo: {
