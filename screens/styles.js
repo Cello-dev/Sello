@@ -38,11 +38,23 @@ const styles = StyleSheet.create({
     //backgroundColor: "#bbb",
     //width: Dimensions.get("window").width
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 68,
     textAlign: 'center'
   },
+  logo: {
+    width: 100,//66,
+    height: 100, //58,
+    borderRadius: 50,
+    margin: 20
+  }
 });
 
 export { forms, styles }

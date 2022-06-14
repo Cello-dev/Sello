@@ -1,4 +1,4 @@
-class Business {
+module.exports = class Business {
     constructor(name,handle, address, email, password, productList, selloReq) {
         this.name = name;
         this.handle = handle;
