@@ -9,8 +9,40 @@ export default function App({navigation}) { // Passing the screen the navigation
     {label: "Sello", value: "sello"},
     {label: "Business", value: "business"},
   ]
+  const[email, setEmail] = useState();
+	const[password, setPassword] = useState();
   const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
+
   const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the textinput border on web. Cannot be in a stylesheet.
+
+  async function LoginEvent(){
+		const data = {
+			email:email,
+			password:password
+		};
+		const options = {
+			method: 'POST',
+			cache:'no-cache',
+			headers: {
+        'Accept':'application/json',
+				'Content-Type':'application/json'
+			},
+			body: JSON.stringify(data)
+		};
+		const response = await fetch("http://selloapi.com/login", options);
+		if(response.ok){
+			let json = await response.json();
+      if(response.ok){
+        navigation.navigate("Home", json)
+      }
+      else{
+        alert("HTTP-Error: " + response.status);
+      }
+		}
+		else{
+			alert("HTTP-Error: " + response.status);
+		}
+	}
   
   return (
   <View style={forms.container}>
@@ -32,6 +64,7 @@ export default function App({navigation}) { // Passing the screen the navigation
         <TextInput
           placeholder="Email"
           style={textInputStyle}
+          onChangeText={val => setEmail(val)}
         />
       </View>
       <View style={forms.input}>
@@ -39,13 +72,14 @@ export default function App({navigation}) { // Passing the screen the navigation
           placeholder="Password"
           secureTextEntry={true}
           style={textInputStyle}
+          onChangeText={val => setPassword(val)}
         />
       </View>
     </View>
     <View style={[forms.button, {marginBottom: 40}]}>
       <Button
         title="Login"
-        onPress={() => Alert.alert('OOPS! Login User Not Implemented Yet')}
+        onPress={() => LoginEvent()}
       />
     </View>
     <View>
