@@ -6,6 +6,8 @@ import { Platform, StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback} f
 import Login from "./screens/login_reg/login";
 import Register from './screens/login_reg/register';
 import Home from './screens/login_reg/home';
+import Forgot from './screens/login_reg/forgotpword';
+import Reset from './screens/login_reg/resetpword';
 
 export default function App() {
   const [isLoggedIn, setLogin] = useState(false);
@@ -38,6 +40,16 @@ export default function App() {
                 <Stack.Screen
                   name="Home"
                   component={Home}
+                  options={{ title: '' }}
+                />
+                <Stack.Screen
+                  name="Forgot"
+                  component={Forgot}
+                  options={{ title: '' }}
+                />
+                <Stack.Screen
+                  name="Reset"
+                  component={Reset}
                   options={{ title: '' }}
                 />
               </Stack.Navigator>

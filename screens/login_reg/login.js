@@ -91,6 +91,15 @@ export default function App({navigation}) { // Passing the screen the navigation
         />
       </View>
     </View>
+    <View>
+      <Text>Forgot your password?</Text>
+      <View style={forms.button}>
+        <Button
+          title="Forgot Password"
+          onPress={() => navigation.navigate("Forgot")}
+        />
+      </View>
+    </View>
     <StatusBar style="auto" />
   </View>
   );
