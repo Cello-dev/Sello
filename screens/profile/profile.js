@@ -3,38 +3,22 @@ import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { styles } from "../styles.js";
 const Product = require("../../objects/Product");
 
-export default function Business() {
-
-	// - - - - - -  MOCK DATA - Remove after fetch api is implemented
-	let productArr = [];
-	let item;
-	for (let i = 0; i < 8; i++) {
-		item = {
-			"name": "Product-" + i,
-			"business": "Business-" + i,
-			"tag": "Tag-" + i,
-			"desc": "Desc-" + i,
-			"img": "https://reactnative.dev/img/tiny_logo.png"
-		};
-		productArr.push(item);
-	}
-	// - - - - - - end of MOCK DATA - - - - - -
-
+export default function Profile({route, navigation}) {
+	const businessObj = route.params['businessObj'];
+	const userType = route.params['userType'];
 	// Keeps page in loading state until fetch api is complete
 	// TODO: Change useState from false to true after fetch api is added
 	const [isLoading, setLoading] = useState(false);
-	// TODO: Fetch API to get business data and display on screen
-	const [data, setData] = useState(productArr);
 
+	// create product component for each item
 	function productComponent({item}) {
-		const product = new Product(item['name'], item['business'], item['tag'], item['desc'], item['img']);
 		return (
-			<View key={product.getName} style={s.item}>
-				<Text style={s.productName}>{product.getName}</Text>
+			<View key={item.getName} style={s.item}>
+				<Text style={s.productName}>{item.getName}</Text>
 				<Image
 					style={s.image}
 					source={
-						{uri: product.getimgURL}
+						{uri: item.getImgUrl}
 					}
 				/>
 			</View>
@@ -44,22 +28,22 @@ export default function Business() {
 	return (
 		<View style={styles.container}>
 			{ isLoading && <Text>Loading...</Text> }
-			{ data.length > 0 && (
+			{ typeof businessObj != "undefined" && (
 					<View style={{justifyContent: 'center', alignItems: 'center'}}>
 						<Image
 							style={styles.logo}
 							source={
-								{uri: "https://reactnative.dev/img/tiny_logo.png"}
+								{uri: businessObj.getImgUrl}
 							}
 						/>
-						<Text style={s.businessName}>Business Name</Text>
-						<Text style={s.businessTag}>Business Tag</Text>
+						<Text style={s.businessName}>{businessObj.getName}</Text>
+						<Text style={s.businessTag}>{businessObj.getHandle}</Text>
 						<FlatList
 							contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-							data={data}
+							data={businessObj.getProductList}
 							numColumns={2}
 							renderItem={productComponent}
-							keyExtractor={(item) => item['name']}	
+							keyExtractor={(item) => item['name']}
 						/>
 					</View>
 			)}
