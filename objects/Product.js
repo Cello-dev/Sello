@@ -1,4 +1,4 @@
-class Product{
+module.exports = class Product {
     constructor(name, business, taglist, description, imgURL){
         this.name = name;
         this.business= business; 
