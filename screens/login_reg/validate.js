@@ -2,16 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { Platform, StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
 import { styles, forms } from "../styles.js";
-import SwitchSelector from "react-native-switch-selector"
 
 export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
 
   const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the textinput border on web. Cannot be in a stylesheet.
-  const[email, setEmail] = useState();
+  const[key, setKey] = useState(); 
 
-  async function ForgotEvent(){
+  async function test(){
     const data = {
-        email:email,
+        key: key,
     };
     const options = {
         method: 'POST',
@@ -23,10 +22,10 @@ export default function App({navigation}) { // Passing the screen the navigation
         body: JSON.stringify(data)
     };
     console.log(options.body)
-    const response = await fetch("http://selloapi.com/forgotpassword", options);
+    const response = await fetch("http://selloapi.com/validatetoken", options);
     if(response.ok){
         let json = await response.json();
-        navigation.navigate("Validate");
+        navigation.navigate("Reset", data);
     }
     else{
         alert("HTTP-Error: " + response.status);
@@ -35,18 +34,18 @@ export default function App({navigation}) { // Passing the screen the navigation
 
   return (
   <View style={forms.container}>
-    <Text style={styles.title}>Forgot Password</Text>
+    <Text style={styles.title}>Enter Token</Text>
     <View style={forms.input}>
         <TextInput
-          placeholder="Email"
+          placeholder="0,1,2,a,b,c..."
           style={textInputStyle}
-          onChangeText={val => setEmail(val)}
+          onChangeText={val => setKey(val)}
         />
     </View>
     <View style={forms.button}>
         <Button
-          title="Send Email"
-          onPress={() => ForgotEvent()}
+          title="Validate"
+          onPress={() => test()}
         />
     </View>
     <StatusBar style="auto" />

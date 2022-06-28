@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { Platform, StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
-import { styles, forms } from "./styles.js";
+import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector"
 
 export default function App({route, navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
@@ -11,7 +11,8 @@ export default function App({route, navigation}) { // Passing the screen the nav
 
   async function ResetEvent(){
     const data = {
-        password:password,
+        key: route.params.key,
+        password:password
     };
     const options = {
         method: 'POST',
@@ -26,7 +27,7 @@ export default function App({route, navigation}) { // Passing the screen the nav
     const response = await fetch("http://selloapi.com/resetpassword", options);
     if(response.ok){
         let json = await response.json();
-        alert(response.status);
+        navigation.navigate("Login")
     }
     else{
         alert("HTTP-Error: " + response.status);
@@ -49,12 +50,6 @@ export default function App({route, navigation}) { // Passing the screen the nav
         <Button
           title="Reset"
           onPress={() => ResetEvent()}
-        />
-    </View>
-    <View style={forms.button}>
-        <Button
-          title="Log in"
-          onPress={() => navigation.navigate("Login")}
         />
     </View>
     <StatusBar style="auto" />
