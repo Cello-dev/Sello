@@ -7,15 +7,43 @@ export default function Register({navigation}) { // Passing the screen the navig
 	const[email, setEmail] = useState();
 	const[password, setPassword] = useState();
 	const[phone, setPhone] = useState();
+	const[handle, setHandle] = useState();
 	const[brandName, setBrandName] = useState();
 	const[brandDesc, setBrandDesc] = useState();
 	const[industry, setIndustry] = useState();
+
 	const selectorOptions =[
 		{label: "Sello", value: "sello"},
 		{label: "Business", value: "business"},
 	  ]
 	const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
 	const textInputStyle = {...Platform.select({web:{outline:'none'}})} // This hides the textinput border on web. Cannot be in a stylesheet.
+
+	async function RegisterEvent(){
+		const data = {
+			email:email,
+			password:password,
+			handle:handle
+		};
+		const options = {
+			method: 'POST',
+			mode: 'cors',
+			cache:'no-cache',
+			headers: {
+				'Content-Type':'application/json'
+			},
+			body: JSON.stringify(data)
+		};
+		console.log(options.body)
+		const response = await fetch("http://selloapi.com/register", options);
+		if(response.ok){
+			let json = await response.json();
+			alert(response.status);
+		}
+		else{
+			alert("HTTP-Error: " + response.status);
+		}
+	}
 
 	return (
 		<View style={forms.container}>
@@ -47,6 +75,14 @@ export default function Register({navigation}) { // Passing the screen the navig
 						autoCapitalize="none"
 						onChangeText={val => setPassword(val)}
 						secureTextEntry={true}
+						style={textInputStyle}
+					/>
+				</View>
+				<View style={forms.input}>
+					<TextInput
+						placeholder="Handle"
+						autoCapitalize="none"
+						onChangeText={val => setHandle(`@${val}`)}
 						style={textInputStyle}
 					/>
 				</View>
@@ -86,7 +122,7 @@ export default function Register({navigation}) { // Passing the screen the navig
 			<View style={forms.submit}>
 				<Button
 					title="Register"
-					onPress={() => Alert.alert("Submitted reigster")}
+					onPress={() => RegisterEvent()}
 				/>
 			</View>
 		</View>
