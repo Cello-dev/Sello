@@ -5,6 +5,7 @@ import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector";
 import Business from '../../objects/Business.js';
 import Product from '../../objects/Product.js';
+import { url } from '../../components/request.js';
 
 export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
   const selectorOptions =[
@@ -17,13 +18,14 @@ export default function App({navigation}) { // Passing the screen the navigation
   const[password, setPassword] = useState();
   const[loginValid, setLoginValid] = useState(true); // if false, then tell user login is invalid
 
+  // Detect 'Enter' keypress to login
   const keypress = e => {
     if (e.keyCode === 13) {
-      login();
+      LoginEvent();
     }
   };
 
-  async function login() {
+  async function LoginEvent() {
     const options = {
       method: 'POST',
       mode: 'cors',
@@ -38,22 +40,25 @@ export default function App({navigation}) { // Passing the screen the navigation
       })
     };
 
-    const response = await fetch("http://selloapi.com/login", options);
-    if (response.ok) {
-      // - - - - MOCK DATA, REMOVE ONCE ACCOUNT GET IS COMPLETE - - - -
-      let prodList = [];
-      for (let i = 0; i < 10; i++) {
-        let prodObj = new Product("Prod Test" + i, "Bus", ["f"], "Test of product", "https://reactnative.dev/img/tiny_logo.png", Date.now(), Date.now());
-        prodList[i] = prodObj;
-      }
-      let businessObj = new Business("Test", "Handle", "Addr", email, "https://reactnative.dev/img/tiny_logo.png", Date.now(), Date.now(), 5, prodList, "???");
-      // - - - - END OF MOCK DATA - - - -
-      navigation.navigate("Profile", {userType, businessObj});
-      
-    } else {
-      setLoginValid(false);
-      setPassword('');
-    }
+    fetch(url + "login", options)
+      .then(response => response.json())
+      .then(data => {
+        if (data['error']) {
+          // Unsuccessful login
+          setLoginValid(false);
+          setPassword('');
+        } else {
+          // Successful login
+          const authToken = data['token'];
+          const account = data['data'];
+          navigation.navigate("Profile", {userType, authToken, account});
+        }
+      })
+      .catch((error) => {
+        setLoginValid(false);
+        setPassword('');
+        console.log(error);
+      });
 	}
 
   return (
@@ -98,7 +103,7 @@ export default function App({navigation}) { // Passing the screen the navigation
       <View style={[forms.button, {marginBottom: 40}]}>
         <Button
           title="Login"
-          onPress={() => login()}
+          onPress={() => LoginEvent()}
         />
       </View>
       <View>

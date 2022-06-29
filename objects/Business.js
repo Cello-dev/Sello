@@ -1,17 +1,16 @@
 module.exports = class Business {
 
-    constructor(name, handle, address, email, img_url, created_date, last_login_date, view_count, productList, selloReq) {
+    constructor(name, handle, address, email, avatar_url, date_joined, last_login_date, view_count, product_list) {
         this.name = name;
         this.handle = handle;
         this.address = address;
         this.email = email;
-        this.img_url = img_url;
-        this.created_date = created_date;
+        this.avatar_url = avatar_url;
+        this.date_joined = date_joined;
         this.last_login_date = last_login_date;
         this.view_count = view_count;
-        this.productList = productList;
+        this.product_list = product_list;
         this.isLoggedIn = true;
-        this.selloReq = selloReq;
     }
 
     get getName() {
@@ -30,12 +29,12 @@ module.exports = class Business {
         return this.email;
     }
 
-    get getImgUrl() {
-        return this.img_url;
+    get getAvatar() {
+        return this.avatar_url;
     }
 
-    get getCreatedDate() {
-        return this.created_date;
+    get getDateJoined() {
+        return this.date_joined;
     }
 
     get getLastLoginDate() {
@@ -47,7 +46,7 @@ module.exports = class Business {
     }
     
     get getProductList() {
-        return this.productList;
+        return this.product_list;
     }
     
     get isLoggedin() {
@@ -55,7 +54,7 @@ module.exports = class Business {
     }
 
     getProduct(product){
-        productinst =  this.productList.prototype.find(product);
-        return productinst;
+        let obj = this.product_list.prototype.find(product);
+        return obj;
     }
 }

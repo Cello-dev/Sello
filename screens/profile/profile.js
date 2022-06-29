@@ -1,14 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { styles } from "../styles.js";
-const Product = require("../../objects/Product");
+import Business from "../../objects/Business.js";
+import { url } from "../../components/request.js";
 
 export default function Profile({route, navigation}) {
-	const businessObj = route.params['businessObj'];
 	const userType = route.params['userType'];
-	// Keeps page in loading state until fetch api is complete
-	// TODO: Change useState from false to true after fetch api is added
-	const [isLoading, setLoading] = useState(false);
+	const authToken = route.params['authToken'];
+	const account = route.params['account'];
+
+	const [businessObj, setBusinessObj] = useState();
+	// Keeps page in loading state until the account data is retrieved
+	const [isLoading, setLoading] = useState(true);
+
+	// Gets the account passed in by the route params
+	// Requires: auth token and account
+	async function AccountEvent() {
+		const options = {
+			method: 'GET',
+			mode: 'cors',
+			cache: 'no-cache',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'Authorization': "Token " + authToken
+			}
+		}
+
+		fetch(url + "account/" + account['id'], options)
+			.then(response => response.json())
+			.then(data => {
+				let obj = new Business(data['name'], data['handle'], 'Address', data['email'], data['avatar_url'], data['date_joined'], data['date_joined'], 0, []);
+				setBusinessObj(obj);
+				setLoading(false);
+			})
+			.catch((error) => {
+				// TODO: Tell user there is a problem getting this account
+				console.log(error);
+			});
+
+	}
 
 	// create product component for each item
 	function productComponent({item}) {
@@ -25,6 +56,13 @@ export default function Profile({route, navigation}) {
 		)
 	}
 
+	// Calls this function once on load time
+	// Without useEffect and empty array, AccountEvent() would
+	// be calling infintiely because of useState
+	useEffect(() => {
+		AccountEvent();
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			{ isLoading && <Text>Loading...</Text> }
@@ -33,7 +71,7 @@ export default function Profile({route, navigation}) {
 						<Image
 							style={styles.logo}
 							source={
-								{uri: businessObj.getImgUrl}
+								{uri: businessObj.getAvatar}
 							}
 						/>
 						<Text style={s.businessName}>{businessObj.getName}</Text>
