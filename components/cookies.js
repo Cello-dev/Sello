@@ -1,5 +1,4 @@
 
-// rename get to somethign else since its causing error
 export default function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
