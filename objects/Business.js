@@ -1,35 +1,60 @@
 module.exports = class Business {
-    constructor(name,handle, address, email, password, productList, selloReq) {
+
+    constructor(name, handle, address, email, avatar_url, date_joined, last_login_date, view_count, product_list) {
         this.name = name;
         this.handle = handle;
         this.address = address;
         this.email = email;
-        this.password = password;
-        this.productList = productList;
-        this.isLoggedIn = True;
-        this.selloReq; 
+        this.avatar_url = avatar_url;
+        this.date_joined = date_joined;
+        this.last_login_date = last_login_date;
+        this.view_count = view_count;
+        this.product_list = product_list;
+        this.isLoggedIn = true;
     }
 
     get getName() {
         return this.name;
     }
+    
     get getHandle(){
-        return "$"+this.Handle
+        return "$"+this.handle
     }
+    
     get getAddress(){
         return this.address;
     }
+    
     get getEmail(){
         return this.email;
     }
-    get getProductList() {
-        return this.productList;
+
+    get getAvatar() {
+        return this.avatar_url;
     }
+
+    get getDateJoined() {
+        return this.date_joined;
+    }
+
+    get getLastLoginDate() {
+        return this.last_login_date;
+    }
+
+    get getViewCount() {
+        return this.view_count;
+    }
+    
+    get getProductList() {
+        return this.product_list;
+    }
+    
     get isLoggedin() {
         return this.isLoggedIn;
     }
+
     getProduct(product){
-        productinst =  this.productList.prototype.find(product);
-        return productinst;
+        let obj = this.product_list.prototype.find(product);
+        return obj;
     }
 }
