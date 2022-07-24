@@ -13,6 +13,13 @@ export default function Profile({route, navigation}) {
 	// Keeps page in loading state until the account data is retrieved
 	const [isLoading, setLoading] = useState(true);
 
+	// Calls this function once on load time
+	// Without useEffect and empty array, AccountEvent() would
+	// be calling infintiely because of useState
+	useEffect(() => {
+		AccountEvent();
+	}, []);
+
 	// Gets the account passed in by the route params
 	// Requires: auth token and account
 	async function AccountEvent() {
@@ -55,13 +62,6 @@ export default function Profile({route, navigation}) {
 			</View>
 		)
 	}
-
-	// Calls this function once on load time
-	// Without useEffect and empty array, AccountEvent() would
-	// be calling infintiely because of useState
-	useEffect(() => {
-		AccountEvent();
-	}, []);
 
 	return (
 		<View style={styles.container}>

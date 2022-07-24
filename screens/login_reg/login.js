@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
 import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector";
-import Business from '../../objects/Business.js';
-import Product from '../../objects/Product.js';
 import { url } from '../../components/request.js';
+import * as SecureStore from 'expo-secure-store';
 
 export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
   const selectorOptions =[
@@ -14,9 +13,29 @@ export default function App({navigation}) { // Passing the screen the navigation
   ]
   const[userType, setUserType] = useState(selectorOptions[0].value); // This is an async task, the value may not be updated right away.
   const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the text input border on web. Cannot be in a stylesheet.
-  const[email, setEmail] = useState();
-  const[password, setPassword] = useState();
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
   const[loginValid, setLoginValid] = useState(true); // if false, then tell user login is invalid
+  const isAutoLogging = useRef(true); // Is the program in the process of trying to auto log user
+
+  // Attempt to auto login
+  useEffect(() => {
+    autoLogin("acc_creds");
+  }, []);
+
+  // Starts attempting to automatically login with email and password filled
+  // This function will be called 3 times before finally calling LoginEvent()
+  // because it's calling while in empty state, email state, and password state
+  useEffect(() => {
+    if (isAutoLogging.current) {
+      if (email == "" || password == "") {
+        return;
+      } else {
+        isAutoLogging.current = false;
+      }
+      LoginEvent();
+    }
+  }, [email, password]);
 
   // Detect 'Enter' keypress to login
   const keypress = e => {
@@ -24,6 +43,33 @@ export default function App({navigation}) { // Passing the screen the navigation
       LoginEvent();
     }
   };
+
+  // Attempts to login automatically if login info exists locally
+  async function autoLogin(key) {
+    let result = await getCredentials(key);
+    if (result) {
+      let json = JSON.parse(result);
+      setEmail(json['email']);
+      setPassword(json['password']);
+    } else {
+      // No credentials found, don't continue auto logging
+      isAutoLogging.current = false;
+    }
+  };
+
+  // Stores the account credentials in the user's storage locally and is encrypted
+  async function saveCredentials(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+  // Removes the account credentials from the user's storage locally
+  async function removeCredentials(key) {
+    await SecureStore.deleteItemAsync(key);
+  }
+
+  async function getCredentials(key) {
+    return SecureStore.getItemAsync(key);
+  }
 
   async function LoginEvent() {
     const options = {
@@ -51,6 +97,13 @@ export default function App({navigation}) { // Passing the screen the navigation
           // Successful login
           const authToken = data['token'];
           const account = data['data'];
+          
+          let credJson = JSON.stringify({
+            email: email,
+            password: password
+          });
+          saveCredentials("acc_creds", credJson);
+          //removeCredentials("acc_creds");
           navigation.navigate("Profile", {userType, authToken, account});
         }
       })
@@ -119,20 +172,3 @@ export default function App({navigation}) { // Passing the screen the navigation
     </View>
   );
 }
-
-/*
-TODO: Fix this function not working
-
-validate = (text) => {
-  console.log(text);
-  let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-  if (reg.test(text) === false) {
-    console.log("Email is Not Correct");
-    this.setState({ email: text })
-    return false;
-  }
-  else {
-    this.setState({ email: text })
-    console.log("Email is Correct");
-  }
-}*/
