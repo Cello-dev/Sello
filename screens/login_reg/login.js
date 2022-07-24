@@ -20,7 +20,11 @@ export default function App({navigation}) { // Passing the screen the navigation
 
   // Attempt to auto login
   useEffect(() => {
-    autoLogin("acc_creds");
+    if (Platform.OS !== 'web') {
+      autoLogin("acc_creds");
+    } else {
+      isAutoLogging.current = false;
+    }
   }, []);
 
   // Starts attempting to automatically login with email and password filled
@@ -98,12 +102,16 @@ export default function App({navigation}) { // Passing the screen the navigation
           const authToken = data['token'];
           const account = data['data'];
           
-          let credJson = JSON.stringify({
-            email: email,
-            password: password
-          });
-          saveCredentials("acc_creds", credJson);
-          //removeCredentials("acc_creds");
+          if (Platform.OS !== 'web') {
+            // Save login credentials automatically
+            // if using iOS or android
+            let credJson = JSON.stringify({
+              email: email,
+              password: password
+            });
+            saveCredentials("acc_creds", credJson);
+            //removeCredentials("acc_creds");
+          }
           navigation.navigate("Profile", {userType, authToken, account});
         }
       })
