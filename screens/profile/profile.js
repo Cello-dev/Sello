@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { styles } from "../styles.js";
 import Business from "../../objects/Business.js";
 import { url } from "../../components/request.js";
+import { ProductComponent } from "../../components/product.js";
 
 export default function Profile({route, navigation}) {
 	const userType = route.params['userType'];
@@ -10,8 +11,7 @@ export default function Profile({route, navigation}) {
 	const account = route.params['account'];
 
 	const [businessObj, setBusinessObj] = useState();
-	// Keeps page in loading state until the account data is retrieved
-	const [isLoading, setLoading] = useState(true);
+	const [isLoading, setLoading] = useState(true); // Keeps page in loading state until the account data is retrieved
 
 	// Calls this function once on load time
 	// Without useEffect and empty array, AccountEvent() would
@@ -48,21 +48,6 @@ export default function Profile({route, navigation}) {
 
 	}
 
-	// create product component for each item
-	function productComponent({item}) {
-		return (
-			<View key={item.getName} style={s.item}>
-				<Text style={s.productName}>{item.getName}</Text>
-				<Image
-					style={s.image}
-					source={
-						{uri: item.getImgUrl}
-					}
-				/>
-			</View>
-		)
-	}
-
 	return (
 		<View style={styles.container}>
 			{ isLoading && <Text>Loading...</Text> }
@@ -80,7 +65,7 @@ export default function Profile({route, navigation}) {
 							contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
 							data={businessObj.getProductList}
 							numColumns={2}
-							renderItem={productComponent}
+							renderItem={ProductComponent}
 							keyExtractor={(item) => item['name']}
 						/>
 					</View>
@@ -101,16 +86,5 @@ const s = StyleSheet.create({
 	},
 	businessTag: {
 		fontSize: 18,
-	},
-	productName: {
-		fontSize: 20,
-		textAlign: 'center'
-	},
-	image: {
-		width: 100,
-		height: 100
-	},
-	item: {
-		margin: 20
 	}
 });

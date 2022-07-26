@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Platform, StyleSheet, Text, View, Alert, Button, TextInput } from 'react-native';
+import {Platform, Text, View, Alert, Button, TextInput } from 'react-native';
 import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector"
 

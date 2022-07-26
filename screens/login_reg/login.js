@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from "react";
-import { Platform, StyleSheet, Text, View, Switch, TextInput, Button, Alert, Dimensions} from 'react-native';
+import { Platform, Text, View, TextInput, Button } from 'react-native';
 import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector";
 import { url } from '../../components/request.js';
