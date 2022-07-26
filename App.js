@@ -1,16 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
+import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Platform, StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import Login from "./screens/login_reg/login";
-import Register from './screens/login_reg/register';
-import Profile from './screens/profile/profile';
+import { Platform, StyleSheet, View, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import Login from "./screens/login_reg/Login";
+import Register from './screens/login_reg/Register';
+import Profile from './screens/profile/Profile';
 
 export default function App() {
-  const [isLoggedIn, setLogin] = useState(false);
-  const [signUp, setSignUp] = useState(false);
-
   const Stack = createNativeStackNavigator();
 
   const KeyboardDismisser = () => {
@@ -19,39 +15,35 @@ export default function App() {
     }
   }
 
-    if(!isLoggedIn){
-      return (
-      <TouchableWithoutFeedback onPress={() => KeyboardDismisser()}>
-          <View style={styles.container}>
-            <NavigationContainer>
-              <Stack.Navigator>
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{ title: '' }}
-                />
-                <Stack.Screen
-                  name="Register"
-                  component={Register}
-                  options={{ title: '' }}
-                />
-                <Stack.Screen
-                  name="Profile"
-                  component={Profile}
-                  options={{ title: '' }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>  
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    }
-    else if (isLoggedIn) {
-      // bring user directly to their account dashboard
-    }
+  return (
+    <TouchableWithoutFeedback onPress={() => KeyboardDismisser()}>
+      <View style={style.container}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ title: '' }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{ title: '' }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{ title: '' }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>  
+      </View>
+    </TouchableWithoutFeedback>
+  );
 }
+
 // Removed alignItems: "center" because it interferes with rendering of the Stack.container.
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   container:{
     flex: 1,
     justifyContent: "center",
