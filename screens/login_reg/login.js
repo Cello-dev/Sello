@@ -4,7 +4,7 @@ import { Platform, Text, View, TextInput, Button } from 'react-native';
 import { styles, forms } from "../styles.js";
 import SwitchSelector from "react-native-switch-selector";
 import { url } from '../../components/request.js';
-import * as SecureStore from 'expo-secure-store';
+import { saveCredentials, removeCredentials, getCredentials } from '../../components/localStorage.js';
 
 export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
   const selectorOptions =[
@@ -60,20 +60,6 @@ export default function App({navigation}) { // Passing the screen the navigation
       isAutoLogging.current = false;
     }
   };
-
-  // Stores the account credentials in the user's storage locally and is encrypted
-  async function saveCredentials(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
-
-  // Removes the account credentials from the user's storage locally
-  async function removeCredentials(key) {
-    await SecureStore.deleteItemAsync(key);
-  }
-
-  async function getCredentials(key) {
-    return SecureStore.getItemAsync(key);
-  }
 
   async function LoginEvent() {
     const options = {
