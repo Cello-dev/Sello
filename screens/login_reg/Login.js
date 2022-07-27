@@ -6,19 +6,15 @@ import SwitchSelector from "react-native-switch-selector";
 import { url } from '../../components/request.js';
 import { saveCredentials, removeCredentials, getCredentials } from '../../components/localStorage.js';
 
-export default function App({navigation}) { // Passing the screen the navigation container so it can naigate to other screens.
-  const selectorOptions =[
-    {label: "Sello", value: "sello"},
-    {label: "Business", value: "business"},
-  ]
-  const[userType, setUserType] = useState(selectorOptions[0].value); // This is an async task, the value may not be updated right away.
+export default function App({navigation}) { // Passing the screen the navigation container so it can navigate to other screens.
   const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the text input border on web. Cannot be in a stylesheet.
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
   const[loginValid, setLoginValid] = useState(true); // if false, then tell user login is invalid
   const isAutoLogging = useRef(true); // Is the program in the process of trying to auto log user
 
-  // Attempt to auto login
+  // Attempt to auto login if device is not web
+  // TODO: Figure out auto logging for web browser using cookies
   useEffect(() => {
     if (Platform.OS !== 'web') {
       autoLogin("acc_creds");
@@ -98,7 +94,7 @@ export default function App({navigation}) { // Passing the screen the navigation
             saveCredentials("acc_creds", credJson);
             //removeCredentials("acc_creds");
           }
-          navigation.navigate("Profile", {userType, authToken, account});
+          navigation.navigate("Profile", {authToken, account});
         }
       })
       .catch((error) => {
@@ -112,18 +108,6 @@ export default function App({navigation}) { // Passing the screen the navigation
     <View style={forms.container}>
       <Text style={styles.title}>Sello</Text>
       <View style={styles.login}>
-        <View style={forms.slider}>
-          <Text>What type of user are you?</Text>
-          <SwitchSelector
-            options={selectorOptions}
-            inital={0}
-            onPress={value => setUserType(value)}
-            buttonColor={"#AAA"}
-            borderColor={"#000"}
-            style={{width:200, paddingTop: 10}}
-            hasPadding
-          />
-        </View>
         { !loginValid && (
           <View style={forms.slider}>
             <Text style={{color: "red"}}>Invalid email or password. Please try again.</Text>

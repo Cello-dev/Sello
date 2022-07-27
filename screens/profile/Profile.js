@@ -6,7 +6,6 @@ import { url } from "../../components/request.js";
 import { ProductComponent } from "../../components/product.js";
 
 export default function Profile({route, navigation}) {
-	const userType = route.params['userType'];
 	const authToken = route.params['authToken'];
 	const account = route.params['account'];
 
