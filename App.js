@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Platform, StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import Login from "./screens/login_reg/login";
 import Register from './screens/login_reg/register';
+import Makeoffer from './screens/forms/makeoffer';
 
 export default function App() {
   const [isLoggedIn, setLogin] = useState(false);
@@ -24,6 +25,7 @@ export default function App() {
           <View style={styles.container}>
             <NavigationContainer>
               <Stack.Navigator>
+              
                 <Stack.Screen
                   name="Login"
                   component={Login}
@@ -33,6 +35,11 @@ export default function App() {
                   name="Register"
                   component={Register}
                   options={{ title: '' }}
+                />
+                  <Stack.Screen
+                name="Makeoffer"
+                component ={Makeoffer}
+                options={{ title: '' }}
                 />
               </Stack.Navigator>
             </NavigationContainer>  

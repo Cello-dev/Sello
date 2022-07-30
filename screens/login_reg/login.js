@@ -11,7 +11,6 @@ export default function App({navigation}) { // Passing the screen the navigation
   ]
   const[userType, setUserType] = useState(selectorOptions[0].value); // This is an asych task, the value may not be updated right away.
   const textInputStyle = {...Platform.select({web:{outline:'none'}})}// // This hides the textinput border on web. Cannot be in a stylesheet.
-  
   return (
   <View style={forms.container}>
     <Text style={styles.title}>Sello</Text>
@@ -56,6 +55,10 @@ export default function App({navigation}) { // Passing the screen the navigation
           onPress={() => navigation.navigate("Register")}
         />
       </View>
+        <Button
+          title="user"
+          onPress={() => navigation.navigate("Makeoffer")}
+        />
     </View>
     <StatusBar style="auto" />
   </View>
